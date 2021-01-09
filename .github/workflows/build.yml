@@ -2,7 +2,9 @@ name: build
 on: [push]
 jobs:
   build-ubuntu:
+
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v1
@@ -14,9 +16,17 @@ jobs:
       run: mkdir build && cd build && cmake .. -DENABLE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
     - name: build
       run: cmake --build build
+    - name: test
+      run: | 
+        cd build && make coverage
+        lcov --list coverage.info
+    - name: collect code coverage
+      run: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
 
   build-windows:
-    runs-on: windows-latest    
+
+    runs-on: windows-latest
+    
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v1
