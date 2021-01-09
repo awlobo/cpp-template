@@ -1,5 +1,8 @@
 name: build
 on: [push]
+env:
+  REPO_NAME: ${{ github.event.repository.name }}
+
 jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
@@ -14,6 +17,8 @@ jobs:
       run: mkdir build && cd build && cmake .. -DENABLE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
     - name: build
       run: cmake --build build
+    - name: run
+      run: ./build/${REPO_NAME}
 
   build-windows:
     runs-on: windows-latest    
@@ -32,5 +37,20 @@ jobs:
     - name: test
       run: |
         cd build
-        ctest -C Debug 
+        ctest -C Debug
+        
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install format dependencies
+      run: |
+        brew install clang-format
+        pip3 install cmake_format==0.6.11 pyyaml 
+    - name: configure
+      run: cmake -Htest -Bbuild -DCMAKE_BUILD_TYPE=Debug
+    - name: check style
+      run: cmake --build build --target check-format
+    - name: build
+      run: cmake --build build -j4
 
