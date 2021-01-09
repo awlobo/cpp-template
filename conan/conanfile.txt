@@ -1,0 +1,6 @@
+[requires]
+# $library/$version@$owner/$branch
+poco/1.10.1
+
+[generators]
+cmake

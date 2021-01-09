@@ -1,0 +1,19 @@
+# CMake
+
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+
+# Executables
+*.exe
+*.out
+*.app
+
+# MacOS
+.DS_Store
+
+build/
+*.o
