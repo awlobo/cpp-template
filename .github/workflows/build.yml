@@ -18,7 +18,7 @@ jobs:
     - name: build
       run: cmake --build build
     - name: run
-      run: ./build/${REPO_NAME}
+      run: ./bin/${REPO_NAME}
 
   build-windows:
     runs-on: windows-latest    
@@ -48,7 +48,7 @@ jobs:
         brew install clang-format
         pip3 install cmake_format==0.6.11 pyyaml 
     - name: configure
-      run: cmake -Htest -Bbuild -DCMAKE_BUILD_TYPE=Debug
+      run: cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug
     - name: check style
       run: cmake --build build --target check-format
     - name: build
