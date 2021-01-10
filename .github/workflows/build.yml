@@ -50,11 +50,10 @@ jobs:
         pip install conan
         brew install clang-format
         pip install cmake_format pyyaml 
-       
-    - name: configure
-      run: cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug
+    - run: mkdir -p build && cd build
+    - run: cmake -DCMAKE_BUILD_TYPE="Debug" ..
     - name: check style
-      run: cmake --build build --target check-format
+      run: cmake --build . --target check-format
 #    - name: build
       #run: cmake --build build -j4
 
