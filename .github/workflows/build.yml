@@ -1,11 +1,14 @@
 name: build
 on: [push]
+env:
+  REPO_NAME: ${{ github.event.repository.name }}
+
 jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
+    - uses: actions/setup-python@v2
     - run: pip install cpplint
     - run: pip install conan
     - run: sudo apt-get install cppcheck
@@ -14,12 +17,14 @@ jobs:
       run: mkdir build && cd build && cmake .. -DENABLE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
     - name: build
       run: cmake --build build
+    #- name: run
+      #run: ./bin/${REPO_NAME}
 
   build-windows:
     runs-on: windows-latest    
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
+    - uses: actions/setup-python@v2
     - run: pip install cpplint
     - run: pip install conan
     - name: configure
@@ -32,5 +37,23 @@ jobs:
     - name: test
       run: |
         cd build
-        ctest -C Debug 
+        ctest -C Debug
+        
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install dependencies
+      run: |
+        pip install cpplint
+        pip install conan
+        brew install clang-format
+        pip install cmake_format pyyaml
+    - run: which conan
+    - run: mkdir -p build && cd build
+    #- run: cmake -DCMAKE_BUILD_TYPE="Debug" -Bbuild
+    #- run: cmake --build build --target check-format
+#    - name: build
+      #run: cmake --build build -j4
 
