@@ -53,7 +53,5 @@ jobs:
     - run: which conan
     - run: mkdir -p build && cd build
     - run: cmake -DCMAKE_BUILD_TYPE=Release -Bbuild
-    #- run: cmake --build build --target check-format
-#    - name: build
-      #run: cmake --build build -j4
+    - run: cmake --build build --target check-format
 
