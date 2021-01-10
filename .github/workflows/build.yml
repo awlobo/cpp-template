@@ -51,6 +51,7 @@ jobs:
         brew install clang-format
         pip install cmake_format pyyaml
     - run: which conan
+    - run: echo "::add-path::/Users/runner/hostedtoolcache/Python/3.9.1/x64/bin/"
     - run: mkdir -p build && cd build
     #- run: cmake -DCMAKE_BUILD_TYPE="Debug" -Bbuild
     #- run: cmake --build build --target check-format
