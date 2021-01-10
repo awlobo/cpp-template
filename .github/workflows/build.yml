@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
+    - uses: actions/setup-python@v2
     - run: pip install cpplint
     - run: pip install conan
     - run: sudo apt-get install cppcheck
@@ -33,7 +33,7 @@ jobs:
         cd build
         cmake -DCMAKE_BUILD_TYPE=Debug ..
     - name: build
-      run: cmake --build .
+      run: cmake --build build
     - name: test
       run: |
         cd build
@@ -44,16 +44,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
-    - run: pip install cpplint
-    - run: pip install conan
-    - name: Install format dependencies
+    - name: Install dependencies
       run: |
+        pip install cpplint
+        pip install conan
         brew install clang-format
         pip install cmake_format pyyaml 
+       
     - name: configure
       run: cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug
     - name: check style
       run: cmake --build build --target check-format
-    - name: build
-      run: cmake --build build -j4
+#    - name: build
+      #run: cmake --build build -j4
 
