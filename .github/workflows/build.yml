@@ -17,14 +17,14 @@ jobs:
       run: mkdir build && cd build && cmake .. -DENABLE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
     - name: build
       run: cmake --build build
-    - name: run
-      run: ./bin/${REPO_NAME}
+    #- name: run
+      #run: ./bin/${REPO_NAME}
 
   build-windows:
     runs-on: windows-latest    
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
+    - uses: actions/setup-python@v2
     - run: pip install cpplint
     - run: pip install conan
     - name: configure
@@ -33,7 +33,7 @@ jobs:
         cd build
         cmake -DCMAKE_BUILD_TYPE=Debug ..
     - name: build
-      run: cmake --build build
+      run: cmake --build .
     - name: test
       run: |
         cd build
@@ -43,10 +43,13 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - run: pip install cpplint
+    - run: pip install conan
     - name: Install format dependencies
       run: |
         brew install clang-format
-        pip3 install cmake_format==0.6.11 pyyaml 
+        pip install cmake_format pyyaml 
     - name: configure
       run: cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug
     - name: check style
