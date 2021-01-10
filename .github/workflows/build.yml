@@ -51,7 +51,7 @@ jobs:
         brew install clang-format
         pip install cmake_format pyyaml 
     - run: mkdir -p build && cd build
-    - run: cmake -DCMAKE_BUILD_TYPE="Debug" build
+    - run: cmake -DCMAKE_BUILD_TYPE="Debug" -Bbuild
     - name: check style
       run: cmake --build . --target check-format
 #    - name: build
