@@ -1,5 +1,11 @@
 name: build
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 env:
   REPO_NAME: ${{ github.event.repository.name }}
 
@@ -17,8 +23,6 @@ jobs:
       run: mkdir build && cd build && cmake .. -DENABLE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
     - name: build
       run: cmake --build build
-    #- name: run
-      #run: ./bin/${REPO_NAME}
 
   build-windows:
     runs-on: windows-latest    
