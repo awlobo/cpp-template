@@ -53,7 +53,7 @@ jobs:
     - run: mkdir -p build && cd build
     - run: cmake -DCMAKE_BUILD_TYPE="Debug" ..
     - name: check style
-      run: cmake --build . --target check-format
+      run: cmake --build build --target check-format
 #    - name: build
       #run: cmake --build build -j4
 
