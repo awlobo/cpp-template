@@ -52,9 +52,8 @@ jobs:
         pip install cmake_format pyyaml
     - run: which conan
     - run: mkdir -p build && cd build
-    - run: cmake -DCMAKE_BUILD_TYPE="Debug" -Bbuild
-    - name: check style
-      run: cmake --build build --target check-format
+    #- run: cmake -DCMAKE_BUILD_TYPE="Debug" -Bbuild
+    #- run: cmake --build build --target check-format
 #    - name: build
       #run: cmake --build build -j4
 
